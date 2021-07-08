@@ -73,90 +73,81 @@
 
 <div class="container  p-5">
     <div class="row" id="items">
+        
+        {% for i in item %}
         <div class="col-lg-4 mt-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'img/potato.png' %}" alt="" height="250px">
+                <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
                 <div class="card-body">
-                    <h5 class="card-title">Potato</h5>
-                    <p class="card-text">Rs 20.00</p>
-                    <i hidden>1,6</i>
-                    <a href="#" class="btn btn-primary add-cart">Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'img/coke.png' %}" alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">Coca-Cola</h5>
-                    <p class="card-text">Rs 15.00</p>
-                    <i hidden>6,1</i>
+                    <h5 class="card-title">{{i.item_name}}</h5>
+                    <p class="card-text">Rs {{i.Price}}</p>
+                    <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
                     <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
                     <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 mt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'img/burger.png' %}" alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">burger</h5>
-                    <p class="card-text">Rs 170.00</p>
-                    <i hidden>4,10</i>
-                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'img/tomato.png' %}" alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">Tomato</h5>
-                    <p class="card-text">Rs 15.00</p>
-                    <i hidden>3,6</i>
-                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'img/bread.png' %}" alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">Bread</h5>
-                    <p class="card-text">Rs 25.00</p>
-                    <i hidden>4,2</i>
-                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'img/coke.png' %}" alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">Coca-Cola 150ml</h5>
-                    <p class="card-text">Rs 150.00</p>
-                    <i hidden>4,5</i>
-                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'img/coke.png' %}" alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">Coca-Cola 50ml</h5>
-                    <p class="card-text">Rs 55.00</p>
-                    <i hidden>7,9</i>
-                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
+<!--        <div class="col-lg-4 mt-4">-->
+<!--            <div class="card" style="width: 18rem;">-->
+<!--                <img class="card-img-top" src="{% static 'img/burger.png' %}" alt="" height="250px">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title">burger</h5>-->
+<!--                    <p class="card-text">Rs 170.00</p>-->
+<!--                    <i hidden>4,10</i>-->
+<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
+<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 mt-4">-->
+<!--            <div class="card" style="width: 18rem;">-->
+<!--                <img class="card-img-top" src="{% static 'img/tomato.png' %}" alt="" height="250px">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title">Tomato</h5>-->
+<!--                    <p class="card-text">Rs 15.00</p>-->
+<!--                    <i hidden>3,6</i>-->
+<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
+<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 mt-4">-->
+<!--            <div class="card" style="width: 18rem;">-->
+<!--                <img class="card-img-top" src="{% static 'img/bread.png' %}" alt="" height="250px">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title">Bread</h5>-->
+<!--                    <p class="card-text">Rs 25.00</p>-->
+<!--                    <i hidden>4,2</i>-->
+<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
+<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 mt-4">-->
+<!--            <div class="card" style="width: 18rem;">-->
+<!--                <img class="card-img-top" src="{% static 'img/coke.png' %}" alt="" height="250px">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title">Coca-Cola 150ml</h5>-->
+<!--                    <p class="card-text">Rs 150.00</p>-->
+<!--                    <i hidden>4,5</i>-->
+<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
+<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 mt-4">-->
+<!--            <div class="card" style="width: 18rem;">-->
+<!--                <img class="card-img-top" src="{% static 'img/coke.png' %}" alt="" height="250px">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title">Coca-Cola 50ml</h5>-->
+<!--                    <p class="card-text">Rs 55.00</p>-->
+<!--                    <i hidden>7,9</i>-->
+<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
+<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
 </div>
