@@ -16,7 +16,7 @@
 
 <div class="map" id="map">
     <div class="closemaps">
-        <i class="fa fa-times" aria-hidden="true" style="font-weight: 100;font-size: 30px" ></i>
+        <i class="fa fa-times" aria-hidden="true" style="font-weight: 100;font-size: 30px"></i>
     </div>
     <div class="store">
     </div>
@@ -38,11 +38,11 @@
 
     <div class="subtotal cf">
         <ul>
-{#            <li class="totalRow"><span class="label">Subtotal</span><span class="value">Rs 35.00</span></li>#}
-{#            <li class="totalRow"><span class="label">Shipping</span><span class="value">Rs 5.00</span></li>#}
-{#            <li class="totalRow"><span class="label">Tax</span><span class="value">Rs 4.00</span></li>#}
-{#            <li class="totalRow final"><span class="label">Total</span><span class="value">Rs 44.00</span></li>#}
-{#            <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>#}
+            {#            <li class="totalRow"><span class="label">Subtotal</span><span class="value">Rs 35.00</span></li>#}
+            {#            <li class="totalRow"><span class="label">Shipping</span><span class="value">Rs 5.00</span></li>#}
+            {#            <li class="totalRow"><span class="label">Tax</span><span class="value">Rs 4.00</span></li>#}
+            {#            <li class="totalRow final"><span class="label">Total</span><span class="value">Rs 44.00</span></li>#}
+            {#            <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>#}
         </ul>
     </div>
 </div>
@@ -66,92 +66,56 @@
     <div class="search-container" style="width: 70%;margin: auto">
         {#            <a class="g-icon" href="https://google.com" target="_blank"><img src="https://user-images.githubusercontent.com/48612525/86507657-d54fbd80-bd8e-11ea-866b-ac26496481ae.png" alt="google icon" /></a>#}
         <input id="searchbar" class="search-bar" type="text" placeholder="Enter Search.."/>
-        <button id="searchcross"><i class="fa fa-times" aria-hidden="true" style="font-weight: 100" ></i></button>
+        <button id="searchcross"><i class="fa fa-times" aria-hidden="true" style="font-weight: 100"></i></button>
         <button class="mic" id="voicesearch"><i class="fa fa-microphone" aria-hidden="true"></i></button>
     </div>
 </div>
-
-<div class="container  p-5">
-    <div class="row" id="items">
-        
+<br>
+<h1 align="center">Items</h1>
+<div style="position: relative">
+    <div style="position: absolute;top:45%;z-index:1;">
+        <i class="fa fa-chevron-circle-left" id="itemsscrollleft" style="font-size: 50px;margin-left:10px"></i>
+    </div>
+    <div class="container" id="items" style="overflow-x: auto;white-space: nowrap;height: 550px;">
         {% for i in item %}
-        <div class="col-lg-4 mt-4">
+            <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.item_name }}</h5>
+                        <p class="card-text">Rs {{ i.Price }}</p>
+                        <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
+                        <a href="#" class="btn btn-primary add-cart">Add to Cart <i
+                                class="fa fa-cart-arrow-down"></i></a>
+                        <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="itemsscrollright" style="position: absolute;top:45%;z-index:1;margin-right: 10px;right: 0">
+        <i class="fa fa-chevron-circle-right" style="font-size: 50px"></i>
+    </div>
+</div>
+<br>
+<h1 align="center">Suggestions</h1>
+<div class="container" style="overflow-x: auto;white-space: nowrap;height: 550px;position: relative">
+    <div style="position: fixed"><img src="{% static 'img/left-arrow.gif' %}"></div>
+    {% for i in item %}
+        <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
                 <div class="card-body">
-                    <h5 class="card-title">{{i.item_name}}</h5>
-                    <p class="card-text">Rs {{i.Price}}</p>
+                    <h5 class="card-title">{{ i.item_name }}</h5>
+                    <p class="card-text">Rs {{ i.Price }}</p>
                     <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
-                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
+                    <a href="#" class="btn btn-primary add-cart">Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
                     <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
                 </div>
             </div>
         </div>
-        {% endfor %}
-<!--        <div class="col-lg-4 mt-4">-->
-<!--            <div class="card" style="width: 18rem;">-->
-<!--                <img class="card-img-top" src="{% static 'img/burger.png' %}" alt="" height="250px">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">burger</h5>-->
-<!--                    <p class="card-text">Rs 170.00</p>-->
-<!--                    <i hidden>4,10</i>-->
-<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
-<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-4 mt-4">-->
-<!--            <div class="card" style="width: 18rem;">-->
-<!--                <img class="card-img-top" src="{% static 'img/tomato.png' %}" alt="" height="250px">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Tomato</h5>-->
-<!--                    <p class="card-text">Rs 15.00</p>-->
-<!--                    <i hidden>3,6</i>-->
-<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
-<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-4 mt-4">-->
-<!--            <div class="card" style="width: 18rem;">-->
-<!--                <img class="card-img-top" src="{% static 'img/bread.png' %}" alt="" height="250px">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Bread</h5>-->
-<!--                    <p class="card-text">Rs 25.00</p>-->
-<!--                    <i hidden>4,2</i>-->
-<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
-<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-4 mt-4">-->
-<!--            <div class="card" style="width: 18rem;">-->
-<!--                <img class="card-img-top" src="{% static 'img/coke.png' %}" alt="" height="250px">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Coca-Cola 150ml</h5>-->
-<!--                    <p class="card-text">Rs 150.00</p>-->
-<!--                    <i hidden>4,5</i>-->
-<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
-<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-4 mt-4">-->
-<!--            <div class="card" style="width: 18rem;">-->
-<!--                <img class="card-img-top" src="{% static 'img/coke.png' %}" alt="" height="250px">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Coca-Cola 50ml</h5>-->
-<!--                    <p class="card-text">Rs 55.00</p>-->
-<!--                    <i hidden>7,9</i>-->
-<!--                    <a href="#" class="btn btn-primary add-cart" >Add to Cart <i class="fa fa-cart-arrow-down"></i></a>-->
-<!--                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-    </div>
+    {% endfor %}
 </div>
-
 
 </body>
 </html>
