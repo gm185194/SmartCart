@@ -31,33 +31,33 @@ function shortestpath(visited, i, j, x, y, minroute, routelist) {
     // console.log("NOT reached :"+routelist);
     visited[i][j] = 1;
 
-    let routes=[];
-    let chance=0;
+    let routes = [];
+    let chance = 0;
 
     if (isvalid(i - 1, j) && issafe(visited, i - 1, j)) {
-        let result=shortestpath(visited, i - 1, j, x, y, minroute, routelist + "u");
-        if(result!==-1)routes.push(result);
-        chance=1;
+        let result = shortestpath(visited, i - 1, j, x, y, minroute, routelist + "u");
+        if (result !== -1) routes.push(result);
+        chance = 1;
     }
 
     if (isvalid(i, j + 1) && issafe(visited, i, j + 1)) {
-        let result=shortestpath(visited, i, j + 1, x, y, minroute, routelist + "r");
-        if(result!==-1)routes.push(result);
-        chance=1;
+        let result = shortestpath(visited, i, j + 1, x, y, minroute, routelist + "r");
+        if (result !== -1) routes.push(result);
+        chance = 1;
     }
     if (isvalid(i, j - 1) && issafe(visited, i, j - 1)) {
-        let result=shortestpath(visited, i, j - 1, x, y, minroute, routelist + "l");
-        if(result!==-1)routes.push(result);
-        chance=1;
+        let result = shortestpath(visited, i, j - 1, x, y, minroute, routelist + "l");
+        if (result !== -1) routes.push(result);
+        chance = 1;
     }
     if (isvalid(i + 1, j) && issafe(visited, i + 1, j)) {
-        let result=shortestpath(visited, i + 1, j, x, y, minroute, routelist + "d");
-        if(result!==-1)routes.push(result);
-        chance=1;
+        let result = shortestpath(visited, i + 1, j, x, y, minroute, routelist + "d");
+        if (result !== -1) routes.push(result);
+        chance = 1;
     }
     visited[i][j] = 0;
-    if(!chance || routes.length===0)return -1;
-    routes.sort((a,b) => a.length - b.length);
+    if (!chance || routes.length === 0) return -1;
+    routes.sort((a, b) => a.length - b.length);
     // console.log(routes);
     return routes[0];
 }
@@ -77,6 +77,8 @@ function refreshmap() {
 $(document).ready(function () {
 
     $("#searchcross").hide();
+    $("#itemsscrollleft").hide();
+    $("#itemsscrollright").show();
     var itemcount = 1;
     var destination = [8, 11];
     var cartposition = [0, 0];
@@ -101,9 +103,8 @@ $(document).ready(function () {
                 refreshmap();
                 cartposition[0] = i;
                 cartposition[1] = j;
-                if(cartposition[0]===destination[0] && cartposition[1]===destination[1])
-                {
-                    let text="You have reached your destination, please pick your item";
+                if (cartposition[0] === destination[0] && cartposition[1] === destination[1]) {
+                    let text = "You have reached your destination, please pick your item";
                     // alert(text);
                     speaker.text = text;
                     window.speechSynthesis.speak(speaker);
@@ -127,23 +128,19 @@ $(document).ready(function () {
                     // console.log(cords[0] + " " + cords[1]);
                     let id = "r" + cords[0] + "c" + cords[1];
                     $("#" + id).addClass("route");
-                    if (pathlist[direction] === "r")
-                    {
+                    if (pathlist[direction] === "r") {
                         cords[1] += 1;
                         $("#" + id).html("<img src=\"../static/img/right-arrow.gif\" width='100%'/>");
                     }
-                    if (pathlist[direction] === "l")
-                    {
+                    if (pathlist[direction] === "l") {
                         cords[1] -= 1;
                         $("#" + id).html("<img src=\"../static/img/left-arrow.gif\" width='100%'/>");
                     }
-                    if (pathlist[direction] === "u")
-                    {
+                    if (pathlist[direction] === "u") {
                         cords[0] -= 1;
                         $("#" + id).html("<img src=\"../static/img/up-arrow.gif\" width='100%'/>");
                     }
-                    if (pathlist[direction] === "d")
-                    {
+                    if (pathlist[direction] === "d") {
                         cords[0] += 1;
                         $("#" + id).html("<img src=\"../static/img/down-arrow.gif\" width='100%'/>");
                     }
@@ -262,5 +259,33 @@ $(document).ready(function () {
         refreshmap();
         // findpath();
     });
+
+    $("#items").scroll(function () {
+        if ($('#items').scrollLeft() === 0) {
+            $("#itemsscrollleft").hide();
+        } else if ($('#items').scrollLeft() === $('#items')[0].scrollWidth - 960) {
+            $("#itemsscrollright").hide();
+        } else {
+            $("#itemsscrollleft").show();
+            $("#itemsscrollright").show();
+        }
+    });
+
+    $("#itemsscrollleft").click(function () {
+        let temp = $('#items').scrollLeft() - 550;
+        temp = temp > 0 ? temp : 0;
+        $('#items').animate({
+            scrollLeft: temp
+        }, 500);
+    });
+
+    $("#itemsscrollright").click(function () {
+        let temp = $('#items').scrollLeft() + 550;
+        temp = temp <= $('#items')[0].scrollWidth - 960 ? temp : $('#items')[0].scrollWidth - 960;
+        $('#items').animate({
+            scrollLeft: temp
+        }, 500);
+    });
+
 
 });
