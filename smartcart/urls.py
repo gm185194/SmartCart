@@ -12,5 +12,6 @@ router.register('Advertisements', views.AdvertisementsView)
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('', views.additem, name="additem"),
     path('router', include(router.urls))
 ]
