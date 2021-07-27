@@ -2,12 +2,14 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.http import JsonResponse
 from pymongo import MongoClient
+import difflib
 
 from smartcart.models import Items, Advertisements
 from .serializers import ItemsSerializer, AdvertisementsSerializer
 
 con = MongoClient('mongodb+srv://smartcartuser:youknowit@smartcart.qxw37.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 db=con['smartcartdb']
+item_names=[i["Name"] for i in db['items'].find() ]
 
 class ItemsView(viewsets.ModelViewSet):
     queryset = Items.objects.all()
@@ -29,18 +31,13 @@ def index(request):
 
 def additem(request):
     val = request.GET["transcript"]
-    print(val)
     try:
-        item = Items.objects.filter(item_name__icontains=val.split()[1])
-        if len(item)==0:raise Exception
-        item_name = item[0].item_name
-        quant = item[0].Quantity
-        price = item[0].Price
-        img = item[0].Image.url
-        if quant==0:
-            if len(item) == 0: raise Exception
-        return JsonResponse({"status":"found",'item_name':item_name,'price':price, 'img': img})
+        item=difflib.get_close_matches(val[4:],item_names)
+        print(item[0])
+        item=db['items'].find_one({"Name":item[0]})
+        item["_id"]="****"
+        return JsonResponse({"status":"found","item":item})
     except Exception as e:
         print(e)
-        return JsonResponse({"status":"not found",'item_name':val})
+        return JsonResponse({"status":"not found",'item_name':val[4:]})
 

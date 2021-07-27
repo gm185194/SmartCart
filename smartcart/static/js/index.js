@@ -242,8 +242,8 @@ $(document).ready(function () {
 
             $.getJSON('additem', {'transcript': transcript.toLowerCase()}, function (data, Status) {
                 if (data["status"] === "found") {
-                    addItemToCart(data['img'],data['item_name'],data['price']);
-                    speaker.text = "Added " + data['item_name']+ " to the cart";
+                    addItemToCart(data['item']['Image'],data['item']['Name'],data['item']['Price'],itemcount);
+                    speaker.text = "Added " + data['item']['Name']+ " to the cart";
                     window.speechSynthesis.speak(speaker);
                 }
                 else
