@@ -102,13 +102,20 @@
 <br>
 <h1 align="center">Suggestions</h1>
 <div class="container" style="overflow-x: auto;white-space: nowrap;height: 550px;position: relative">
-    {% for i in item %}
+    {% for i in item_sug %}
         <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
             <div class="card" style="width: 18rem;">
+                {% if i.discount > 0 %}
+                <div class="discount-label red"> <span>{{ i.discount }}%</span> </div>
+                {% endif %}
                 <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
                 <div class="card-body">
                     <h5 class="card-title">{{ i.item_name }}</h5>
+                    {% if i.discount > 0 %}
+                    <p class="card-text">Rs <del>{{ i.Price }}</del>&nbsp;<ins>{{ i.Discount }}</ins></p>
+                    {% else %}
                     <p class="card-text">Rs {{ i.Price }}</p>
+                    {% endif %}
                     <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
                     <a href="#" class="btn btn-primary add-cart">Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
                     <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>

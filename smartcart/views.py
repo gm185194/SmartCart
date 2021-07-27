@@ -25,7 +25,8 @@ class AdvertisementsView(viewsets.ModelViewSet):
 def index(request):
     items = db['items'].find()
     adv = Advertisements.objects.all()
-    args = {'item': items, 'adv': adv}
+    items_sug = Items.objects.all()
+    args = {'item': items, 'adv': adv,'item_sug':items_sug}
 
     return render(request, "index.html", args)
 

@@ -21,7 +21,7 @@ class Items(models.Model):
     item_code = models.CharField(max_length=300)
     item_name = models.CharField(max_length=300)
     Quantity = models.CharField(max_length=300)
-    Price = models.CharField(max_length=300)
+    Price = models.FloatField(default=0)
     Image = models.ImageField(blank=True, null=True, upload_to="img/")
     Direction_x = models.IntegerField(blank=True, null=True)
     Direction_y = models.IntegerField(blank=True, null=True)
@@ -35,6 +35,11 @@ class Items(models.Model):
         choices=item_ratings,
         default='1'
     )
+    discount = models.FloatField(default=0)
+
+    @property
+    def Discount(self):
+        return self.Price-((self.discount / 100) * self.Price)
 
     def __str__(self):
         return self.item_name
