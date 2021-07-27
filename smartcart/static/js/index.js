@@ -62,15 +62,57 @@ function shortestpath(visited, i, j, x, y, minroute, routelist) {
     return routes[0];
 }
 
-function refreshmap() {
+function refreshmap(destination=[-1,-1]) {
     for (let i = 0; i < storearray.length; i++) {
         for (let j = 0; j < storearray[i].length; j++) {
             let rackorspace = storearray[i][j] ? "rack" : "space";
             let id = "r" + i + "c" + j;
+            if(destination[0]===i && destination[1]===j)continue;
             $("#" + id).removeClass("route");
             $("#" + id).html("");
         }
     }
+}
+
+function addItemToCart(img,item,price,itemcount,quantity=1) {
+    $('.cartWrap').append("<li class=\"items\">\n" +
+        "                <div class=\"infoWrap\">\n" +
+        "                    <div class=\"cartSection\">\n" +
+        "                        <img src=\"" + img + "\" alt=\"\" class=\"itemImg\" height=\"100px\" width=\"100px\"/>\n" +
+        "                        <h3>" + item + "</h3>\n" +
+        "                        <p><i class='fa fa-plus-circle' id='plus"+itemcount+"' style='font-size: 20px;padding-right: 10px;color: black'></i><input type=\"text\" class=\"qty\" placeholder=\"1\" value='"+quantity+"'/><i class='fa fa-minus-circle' id='minus"+itemcount+"' style='font-size:20px;padding-left: 10px;color: black'></i> x Rs " + price + "</p>\n" +
+        "                        <p class=\"stockStatus\"> In Stock</p>\n" +
+        "                    </div>\n" +
+        "                    <div class=\"prodTotal cartSection\">\n" +
+        "                        <p> Rs " + quantity*price + "</p>\n" +
+        "                    </div>\n" +
+        "                    <div class=\"cartSection removeWrap\">\n" +
+        "                        <a href=\"#\" class=\"remove\" id='remove"+itemcount+"' style='text-decoration: none'>x</a>\n" +
+        "                    </div>\n" +
+        "                </div>\n" +
+        "            </li>");
+    itemcount+=1;
+    $("#itemcount").html(itemcount);
+    $(".remove").click(function () {
+        $(this).parent().parent().parent().remove();
+        itemcount-=1;
+        $("#itemcount").html(itemcount);
+        return false;
+    });
+
+    $("#plus"+itemcount).click(function()
+    {
+        let temp=$(this).siblings("input").val();
+        $(this).siblings("input").val(parseInt(temp)+1);
+    });
+
+    $("#minus"+itemcount).click(function()
+    {
+        let temp=$(this).siblings("input").val();
+        $(this).siblings("input").val(parseInt(temp)-1);
+    });
+
+    return itemcount;
 }
 
 
@@ -79,7 +121,7 @@ $(document).ready(function () {
     $("#searchcross").hide();
     $("#itemsscrollleft").hide();
     $("#itemsscrollright").show();
-    var itemcount = 1;
+    var itemcount = 0;
     var destination = [8, 11];
     var cartposition = [0, 0];
 
@@ -100,12 +142,12 @@ $(document).ready(function () {
             $(".store").append("<div id='" + id + "' class=\"" + rackorspace + "\"></div>");
             if (rackorspace === "rack") continue;
             $("#" + id).hover(function () {
-                refreshmap();
+                refreshmap(destination);
                 cartposition[0] = i;
                 cartposition[1] = j;
                 if (cartposition[0] === destination[0] && cartposition[1] === destination[1]) {
+                    destination[0]=-1;destination[1]=-1;
                     let text = "You have reached your destination, please pick your item";
-                    // alert(text);
                     speaker.text = text;
                     window.speechSynthesis.speak(speaker);
                     document.getElementById("map").style.zIndex = "-200";
@@ -149,25 +191,10 @@ $(document).ready(function () {
         }
     }
 
-
-    // var store=$(".store");
-    // store.css("height",height-10);
-    // store.css("width",width-10);
-
-    $('a.remove').click(function () {
-        event.preventDefault();
-        $(this).parent().parent().parent().html("");
-
-    })
-
-    // Just for testing, show all items
-    $('a.btn.continue').click(function () {
-        $('li.items').show(400);
-    })
-
     $('#closecart').click(function () {
         document.getElementById("cart").style.zIndex = "-100";
         document.getElementById("cart").style.opacity = "0";
+        return false;
     });
 
     $('#cartopen').click(function () {
@@ -188,37 +215,15 @@ $(document).ready(function () {
     });
 
     $(".add-cart").click(function () {
-        if ($(this).html() === "Added to Cart") {
-            alert("Item already added");
-            return false;
-        }
         var item = $(this).siblings(".card-title").html();
-        var price = $(this).siblings(".card-text").html();
+        var price = $(this).siblings(".card-text").html().slice(3);
         var img = $(this).parent().siblings(".card-img-top").attr("src");
-        if (itemcount % 2 === 0) {
-            var oddoreven = "even"
-        } else {
-            var oddoreven = "odd"
-        }
-        $('.cartWrap').append("<li class=\"items " + oddoreven + "\">\n" +
-            "                <div class=\"infoWrap\">\n" +
-            "                    <div class=\"cartSection\">\n" +
-            "                        <img src=\"" + img + "\" alt=\"\" class=\"itemImg\" height=\"100px\" width=\"100px\"/>\n" +
-            "                        <h3>" + item + "</h3>\n" +
-            "                        <p><input type=\"text\" class=\"qty\" placeholder=\"1\"/> x " + price + "</p>\n" +
-            "                        <p class=\"stockStatus\"> In Stock</p>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"prodTotal cartSection\">\n" +
-            "                        <p>" + price + "</p>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"cartSection removeWrap\">\n" +
-            "                        <a href=\"#\" class=\"remove\">x</a>\n" +
-            "                    </div>\n" +
-            "                </div>\n" +
-            "            </li>");
+        itemcount = addItemToCart(img, item, price, itemcount);
         $(this).html("Added to Cart");
-        $(this).attr("disabled");
-        itemcount += 1;
+        var this_temp=$(this);
+        setTimeout(function () {
+            this_temp.html("Add to Cart <i class=\"fa fa-cart-arrow-down\"></i>");
+        }, 3000);
         return false;
     });
 
@@ -232,11 +237,31 @@ $(document).ready(function () {
         var current = event.resultIndex;
 
         var transcript = event.results[current][0].transcript;
-        speaker.text = "These are the results for " + transcript;
-        window.speechSynthesis.speak(speaker);
         recognition.stop();
-        $('#searchbar').val(transcript);
-        $('#searchbar').keyup();
+        if (transcript.toLowerCase().indexOf("add ") > -1 ) {
+
+            $.getJSON('additem', {'transcript': transcript.toLowerCase()}, function (data, Status) {
+                if (data["status"] === "found") {
+                    addItemToCart(data['img'],data['item_name'],data['price']);
+                    speaker.text = "Added " + data['item_name']+ " to the cart";
+                    window.speechSynthesis.speak(speaker);
+                }
+                else
+                {
+                    speaker.text = "Sorry "+ data['item_name'] +" not Found, try searching for that item in the search bar";
+                    window.speechSynthesis.speak(speaker);
+                    alert(speaker.text);
+                }
+            }).fail(function (ex) {
+                alert('item not added,due to ' + ex);
+            });
+        } else {
+            speaker.text = "These are the results for " + transcript;
+            window.speechSynthesis.speak(speaker);
+            $('#searchbar').val(transcript);
+            $('#searchbar').keyup();
+        }
+
     };
 
     $("#searchcross").click(function () {
@@ -254,9 +279,12 @@ $(document).ready(function () {
         let cords = $(this).siblings("i").html().split(",");
         destination[0] = parseInt(cords[0]);
         destination[1] = parseInt(cords[1]);
+        var img = $(this).parent().siblings(".card-img-top").attr("src");
+        let id = "r" + destination[0] + "c" + destination[1];
         document.getElementById("map").style.zIndex = "200";
         document.getElementById("map").style.opacity = "1";
-        refreshmap();
+        refreshmap(destination);
+        $("#" + id).html("<img src='"+ img +"' width='100%'/>");
         // findpath();
     });
 
@@ -286,6 +314,5 @@ $(document).ready(function () {
             scrollLeft: temp
         }, 500);
     });
-
 
 });

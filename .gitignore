@@ -1,3 +1,6 @@
 ﻿*.xml
 *.iml
 *.pyc
+*.mo
+.idea
+/venv

@@ -57,14 +57,16 @@
                 </div>
                 <div class="col-lg-4"></div>
                 <div id="cartopen" class="col-lg-2" style="margin: auto">
-                    <img src="{% static 'img/online-shop.png' %}" height="50px"/>
+                    <div class="cartcount">
+                        <img src="{% static 'img/online-shop.png' %}" height="50px"/>
+                        <span class="count" id="itemcount">0</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="search-container" style="width: 70%;margin: auto">
-        {#            <a class="g-icon" href="https://google.com" target="_blank"><img src="https://user-images.githubusercontent.com/48612525/86507657-d54fbd80-bd8e-11ea-866b-ac26496481ae.png" alt="google icon" /></a>#}
         <input id="searchbar" class="search-bar" type="text" placeholder="Enter Search.."/>
         <button id="searchcross"><i class="fa fa-times" aria-hidden="true" style="font-weight: 100"></i></button>
         <button class="mic" id="voicesearch"><i class="fa fa-microphone" aria-hidden="true"></i></button>
@@ -79,12 +81,12 @@
     <div class="container" id="items" style="overflow-x: auto;white-space: nowrap;height: 550px;">
         {% for i in item %}
             <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
+                <div class="card" style="width: 19rem;">
+                    <img class="card-img-top" src='{{ i.Image }}' alt="" height="250px">
                     <div class="card-body">
-                        <h5 class="card-title">{{ i.item_name }}</h5>
+                        <h5 class="card-title">{{ i.Name }}</h5>
                         <p class="card-text">Rs {{ i.Price }}</p>
-                        <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
+                        <i hidden>{{ i.Position_X }},{{ i.Position_Y }}</i>
                         <a href="#" class="btn btn-primary add-cart">Add to Cart <i
                                 class="fa fa-cart-arrow-down"></i></a>
                         <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
@@ -100,7 +102,6 @@
 <br>
 <h1 align="center">Suggestions</h1>
 <div class="container" style="overflow-x: auto;white-space: nowrap;height: 550px;position: relative">
-    <div style="position: fixed"><img src="{% static 'img/left-arrow.gif' %}"></div>
     {% for i in item %}
         <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
             <div class="card" style="width: 18rem;">
