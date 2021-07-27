@@ -1,121 +1,276 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Smart cart</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="{% static 'css/index.css' %}" rel="stylesheet">
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/slideshow/slider.css' %}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/slideshow/index.js' %}"></script>
+    <script src="{% static 'js/slideshow/slider.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- +Slider -->
+    <div class="slideshow-container">
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 4</div>
+        <img class="slider-image" src="{% static 'img/slider/banking.png' %}" />
+        <div class="text">Banking Sector</div>
+      </div>
 
-<div class="map" id="map">
-    <div class="closemaps">
-        <i class="fa fa-times" aria-hidden="true" style="font-weight: 100;font-size: 30px"></i>
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 4</div>
+        <img src="{% static 'img/slider/retail.png' %}" />
+        <div class="text">Retail Sector</div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 4</div>
+        <img src="{% static 'img/slider/supermarket.png' %}" />
+        <div class="text">Supermarket Sector</div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 4</div>
+        <img src="{% static 'img/slider/telecom.png' %}" />
+        <div class="text">Telecom Sector</div>
+      </div>
     </div>
-    <div class="store">
-    </div>
-</div>
+    <!-- -Slider -->
 
-<div id="cart" class="wrap cf">
+    <div class="main-div">
+      <div class="map" id="map">
+        <div class="closemaps">
+          <i
+            class="fa fa-times"
+            aria-hidden="true"
+            style="font-weight: 100; font-size: 30px"
+          ></i>
+        </div>
+        <div class="store"></div>
+      </div>
 
-    <h1 class="projTitle">Smart Cart</h1>
+      <div id="cart" class="wrap cf">
+        <h1 class="projTitle">Smart Cart</h1>
 
-    <div class="heading cf">
-        <h1 style="font-family: 'Montserrat', sans-serif">MY CART</h1>
-        <a id="closecart" href="#" class="continue">Continue Shopping</a>
-    </div>
+        <div class="heading cf">
+          <h1 style="font-family: 'Montserrat', sans-serif">MY CART</h1>
+          <a id="closecart" href="#" class="continue">Continue Shopping</a>
+        </div>
 
-    <div class="cart">
-        <ul class="cartWrap">
-        </ul>
-    </div>
+        <div class="cart">
+          <ul class="cartWrap"></ul>
+        </div>
 
-    <div class="subtotal cf">
-        <ul>
-            {#            <li class="totalRow"><span class="label">Subtotal</span><span class="value">Rs 35.00</span></li>#}
-            {#            <li class="totalRow"><span class="label">Shipping</span><span class="value">Rs 5.00</span></li>#}
-            {#            <li class="totalRow"><span class="label">Tax</span><span class="value">Rs 4.00</span></li>#}
-            {#            <li class="totalRow final"><span class="label">Total</span><span class="value">Rs 44.00</span></li>#}
-            {#            <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>#}
-        </ul>
-    </div>
-</div>
+        <div class="subtotal cf">
+          <ul>
+            {#
+            <li class="totalRow">
+              <span class="label">Subtotal</span
+              ><span class="value">Rs 35.00</span>
+            </li>
+            #} {#
+            <li class="totalRow">
+              <span class="label">Shipping</span
+              ><span class="value">Rs 5.00</span>
+            </li>
+            #} {#
+            <li class="totalRow">
+              <span class="label">Tax</span><span class="value">Rs 4.00</span>
+            </li>
+            #} {#
+            <li class="totalRow final">
+              <span class="label">Total</span
+              ><span class="value">Rs 44.00</span>
+            </li>
+            #} {#
+            <li class="totalRow">
+              <a href="#" class="btn continue">Checkout</a>
+            </li>
+            #}
+          </ul>
+        </div>
+      </div>
 
-<div>
-    <div class="navbar">
-        <div class="container">
+      <div>
+        <div class="navbar">
+          <div class="container">
             <div class="row" style="width: 100%">
-                <div class="col-lg-6" style="margin: auto">
-                    <h1 style="font-family: 'Montserrat', sans-serif;font-weight: bold;text-align: center;font-size: 2em;text-transform: uppercase;padding-top: 7px">
-                        Smart Cart</h1>
-                </div>
-                <div class="col-lg-4"></div>
-                <div id="cartopen" class="col-lg-2" style="margin: auto">
-                    <img src="{% static 'img/online-shop.png' %}" height="50px"/>
-                </div>
+              <div class="col-lg-6" style="margin: auto">
+                <h1
+                  style="
+                    font-family: 'Montserrat', sans-serif;
+                    font-weight: bold;
+                    text-align: center;
+                    font-size: 2em;
+                    text-transform: uppercase;
+                    padding-top: 7px;
+                  "
+                >
+                  Smart Cart
+                </h1>
+              </div>
+              <div class="col-lg-4"></div>
+              <div id="cartopen" class="col-lg-2" style="margin: auto">
+                <img src="{% static 'img/online-shop.png' %}" height="50px" />
+              </div>
             </div>
+          </div>
         </div>
-    </div>
 
-    <div class="search-container" style="width: 70%;margin: auto">
-        {#            <a class="g-icon" href="https://google.com" target="_blank"><img src="https://user-images.githubusercontent.com/48612525/86507657-d54fbd80-bd8e-11ea-866b-ac26496481ae.png" alt="google icon" /></a>#}
-        <input id="searchbar" class="search-bar" type="text" placeholder="Enter Search.."/>
-        <button id="searchcross"><i class="fa fa-times" aria-hidden="true" style="font-weight: 100"></i></button>
-        <button class="mic" id="voicesearch"><i class="fa fa-microphone" aria-hidden="true"></i></button>
-    </div>
-</div>
-<br>
-<h1 align="center">Items</h1>
-<div style="position: relative">
-    <div style="position: absolute;top:45%;z-index:1;">
-        <i class="fa fa-chevron-circle-left" id="itemsscrollleft" style="font-size: 50px;margin-left:10px"></i>
-    </div>
-    <div class="container" id="items" style="overflow-x: auto;white-space: nowrap;height: 550px;">
+        <div class="search-container" style="width: 70%; margin: auto">
+          {#
+          <a class="g-icon" href="https://google.com" target="_blank"
+            ><img
+              src="https://user-images.githubusercontent.com/48612525/86507657-d54fbd80-bd8e-11ea-866b-ac26496481ae.png"
+              alt="google icon" /></a
+          >#}
+          <input
+            id="searchbar"
+            class="search-bar"
+            type="text"
+            placeholder="Enter Search.."
+          />
+          <button id="searchcross">
+            <i
+              class="fa fa-times"
+              aria-hidden="true"
+              style="font-weight: 100"
+            ></i>
+          </button>
+          <button class="mic" id="voicesearch">
+            <i class="fa fa-microphone" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <br />
+      <h1 align="center">Items</h1>
+      <div style="position: relative">
+        <div style="position: absolute; top: 45%; z-index: 1">
+          <i
+            class="fa fa-chevron-circle-left"
+            id="itemsscrollleft"
+            style="font-size: 50px; margin-left: 10px"
+          ></i>
+        </div>
+        <div
+          class="container"
+          id="items"
+          style="overflow-x: auto; white-space: nowrap; height: 550px"
+        >
+          {% for i in item %}
+          <div class="col-lg-4 mt-4" style="display: inline-block; float: none">
+            <div class="card" style="width: 18rem">
+              <img
+                class="card-img-top"
+                src="{{ i.Image.url }}"
+                alt=""
+                height="250px"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ i.item_name }}</h5>
+                <p class="card-text">Rs {{ i.Price }}</p>
+                <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
+                <a href="#" class="btn btn-primary add-cart"
+                  >Add to Cart <i class="fa fa-cart-arrow-down"></i
+                ></a>
+                <a href="#" class="btn btn-primary directions"
+                  >Directions <i class="fa fa-map-signs"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div
+          id="itemsscrollright"
+          style="
+            position: absolute;
+            top: 45%;
+            z-index: 1;
+            margin-right: 10px;
+            right: 0;
+          "
+        >
+          <i class="fa fa-chevron-circle-right" style="font-size: 50px"></i>
+        </div>
+      </div>
+      <br />
+      <h1 align="center">Suggestions</h1>
+      <div
+        class="container"
+        style="
+          overflow-x: auto;
+          white-space: nowrap;
+          height: 550px;
+          position: relative;
+        "
+      >
+        <div style="position: fixed">
+          <img src="{% static 'img/left-arrow.gif' %}" />
+        </div>
         {% for i in item %}
-            <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ i.item_name }}</h5>
-                        <p class="card-text">Rs {{ i.Price }}</p>
-                        <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
-                        <a href="#" class="btn btn-primary add-cart">Add to Cart <i
-                                class="fa fa-cart-arrow-down"></i></a>
-                        <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                    </div>
-                </div>
+        <div class="col-lg-4 mt-4" style="display: inline-block; float: none">
+          <div class="card" style="width: 18rem">
+            <img
+              class="card-img-top"
+              src="{{ i.Image.url }}"
+              alt=""
+              height="250px"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ i.item_name }}</h5>
+              <p class="card-text">Rs {{ i.Price }}</p>
+              <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
+              <a href="#" class="btn btn-primary add-cart"
+                >Add to Cart <i class="fa fa-cart-arrow-down"></i
+              ></a>
+              <a href="#" class="btn btn-primary directions"
+                >Directions <i class="fa fa-map-signs"></i
+              ></a>
             </div>
-        {% endfor %}
-    </div>
-    <div id="itemsscrollright" style="position: absolute;top:45%;z-index:1;margin-right: 10px;right: 0">
-        <i class="fa fa-chevron-circle-right" style="font-size: 50px"></i>
-    </div>
-</div>
-<br>
-<h1 align="center">Suggestions</h1>
-<div class="container" style="overflow-x: auto;white-space: nowrap;height: 550px;position: relative">
-    <div style="position: fixed"><img src="{% static 'img/left-arrow.gif' %}"></div>
-    {% for i in item %}
-        <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">{{ i.item_name }}</h5>
-                    <p class="card-text">Rs {{ i.Price }}</p>
-                    <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
-                    <a href="#" class="btn btn-primary add-cart">Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
+          </div>
         </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+      </div>
+    </div>
 
-</body>
+    <!-- +Slider Logic,
+    TODO - Need to move Slider logic to external .js file, currently this logic somehow not working in external .js file
+    -->
+    <script>
+      var slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        // var dots = document.getElementsByClassName("dot");
+        // console.log("length", slides.length, dots.length);
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        // for (i = 0; i < dots.length; i++) {
+        //   dots[i].className = dots[i].className.replace(" active", "");
+        // }
+        slides[slideIndex - 1].style.display = "block";
+        // dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 2000); // Change image every 2 seconds
+      }
+    </script>
+    <!-- +Slider Logic-->
+  </body>
 </html>

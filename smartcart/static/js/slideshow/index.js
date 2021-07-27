@@ -1,22 +1,22 @@
-console.log("[slideshow/index.js] : File got included");
+// console.log("[slideshow/index.js] : File got included");
 
 var timeoutId = null;
 var isActive = true;
 
 /* startTimer function - used setTimeout to fire goInactive after the time as passed in parameter - waitTimeBeforeInactive */
 function startTimer(waitTimeBeforeInactive) {
-  console.log("[slideshow/index.js] : startTimer");
+  // console.log("[slideshow/index.js] : startTimer");
 
   timeoutId = window.setTimeout(goInactive, waitTimeBeforeInactive);
 }
 /* resetTimer function - used clearTimeout to clear old timer with given timeoutId and go to activeState */
 function resetTimer(timeoutId) {
-  console.log("[slideshow/index.js] : resetTimer");
+  // console.log("[slideshow/index.js] : resetTimer");
 
   if (timeoutId) {
-    console.log(
-      "[slideshow/index.js] : resetTimer - timeoutId is true clearing it"
-    );
+    // console.log(
+    //   "[slideshow/index.js] : resetTimer - timeoutId is true clearing it"
+    // );
     window.clearTimeout(timeoutId);
     goActive();
   } else {
@@ -26,7 +26,7 @@ function resetTimer(timeoutId) {
 
 /* goActive function - insert code for things to do when user comes active  */
 function goActive() {
-  console.log("[slideshow/index.js] : goActive");
+  // console.log("[slideshow/index.js] : goActive");
   isActive = true;
   $(".slideshow-container").hide();
   $(".main-div").show();
@@ -35,7 +35,7 @@ function goActive() {
 }
 /* goInactive function - insert code for things to do when user goes inactive  */
 function goInactive() {
-  console.log("[slideshow/index.js] : goInactive");
+  // console.log("[slideshow/index.js] : goInactive");
   isActive = false;
 
   $(".slideshow-container").show();
@@ -46,11 +46,11 @@ function goInactive() {
 or inactive check on browser and then if any operation begin then just reset the timer and start new timer
 */
 function inactiveStateSetup(waitTimeBeforeInactive) {
-  console.log("[slideshow/index.js] : inactiveStateSetup");
+  // console.log("[slideshow/index.js] : inactiveStateSetup");
 
   // this.addEventListener("mousemove", resetTimer, false);
   this.addEventListener("mousedown", resetTimer, false);
-  // this.addEventListener("keypress", resetTimer, false);
+  this.addEventListener("keypress", resetTimer, false);
   // this.addEventListener("DOMMouseScroll", resetTimer, false);
   // this.addEventListener("mousewheel", resetTimer, false);
   // this.addEventListener("touchmove", resetTimer, false);
@@ -59,5 +59,5 @@ function inactiveStateSetup(waitTimeBeforeInactive) {
   startTimer(waitTimeBeforeInactive); // start new timer
 }
 
-var waitTimeBeforeInactive = 10000;
+var waitTimeBeforeInactive = 10 * 1000;
 inactiveStateSetup(waitTimeBeforeInactive);

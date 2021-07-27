@@ -1,3 +1,4 @@
 ﻿*.xml
 *.iml
 *.pyc
+smartcart/__pycache__/
