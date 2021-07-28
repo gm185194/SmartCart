@@ -50,7 +50,7 @@ function inactiveStateSetup(waitTimeBeforeInactive) {
 
   // this.addEventListener("mousemove", resetTimer, false);
   this.addEventListener("mousedown", resetTimer, false);
-  // this.addEventListener("keypress", resetTimer, false);
+  this.addEventListener("keypress", resetTimer, false);
   // this.addEventListener("DOMMouseScroll", resetTimer, false);
   // this.addEventListener("mousewheel", resetTimer, false);
   // this.addEventListener("touchmove", resetTimer, false);
@@ -59,5 +59,5 @@ function inactiveStateSetup(waitTimeBeforeInactive) {
   startTimer(waitTimeBeforeInactive); // start new timer
 }
 
-var waitTimeBeforeInactive = 10000;
+var waitTimeBeforeInactive = 20 * 1000;
 inactiveStateSetup(waitTimeBeforeInactive);
