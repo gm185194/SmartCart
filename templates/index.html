@@ -7,13 +7,44 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="{% static 'css/index.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/slideshow/slider.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/slideshow/index.js' %}"></script>
+    <script src="{% static 'js/slideshow/slider.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
 </head>
 <body>
+<!-- +Slider -->
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 4</div>
+    <img class="slider-image" src="{% static 'img/slider/banking.png' %}" />
+    <div class="text">Banking Sector</div>
+  </div>
 
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 4</div>
+    <img src="{% static 'img/slider/retail.png' %}" />
+    <div class="text">Retail Sector</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 4</div>
+    <img src="{% static 'img/slider/supermarket.png' %}" />
+    <div class="text">Supermarket Sector</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 4</div>
+    <img src="{% static 'img/slider/telecom.png' %}" />
+    <div class="text">Telecom Sector</div>
+  </div>
+</div>
+<!-- -Slider -->
+
+<div class="main-div">
 <div class="map" id="map">
     <div class="closemaps">
         <i class="fa fa-times" aria-hidden="true" style="font-weight: 100;font-size: 30px"></i>
@@ -124,6 +155,35 @@
         </div>
     {% endfor %}
 </div>
+</div>
 
+<!-- +Slider Logic,
+TODO - Need to move Slider logic to external .js file, currently this logic somehow not working in external .js file
+-->
+<script>
+  var slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    // var dots = document.getElementsByClassName("dot");
+    // console.log("length", slides.length, dots.length);
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+      slideIndex = 1;
+    }
+    // for (i = 0; i < dots.length; i++) {
+    //   dots[i].className = dots[i].className.replace(" active", "");
+    // }
+    slides[slideIndex - 1].style.display = "block";
+    // dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 2000); // Change image every 2 seconds
+  }
+</script>
+<!-- +Slider Logic-->
 </body>
 </html>

@@ -7,7 +7,7 @@ import difflib
 from smartcart.models import Items, Advertisements
 from .serializers import ItemsSerializer, AdvertisementsSerializer
 
-con = MongoClient('mongodb+srv://smartcartuser:youknowit@smartcart.qxw37.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+con = MongoClient('mongodb+srv://smartcartuser:youknowit@smartcart.qxw37.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE')
 db=con['smartcartdb']
 item_names=[i["Name"] for i in db['items'].find() ]
 
