@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="{% static 'css/index.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'css/alert.css' %}" rel="stylesheet">
     <link href="{% static 'css/slideshow/slider.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="{% static 'js/bootstrap.js' %}"></script>
@@ -14,6 +15,7 @@
     <script src="{% static 'js/slideshow/index.js' %}"></script>
     <script src="{% static 'js/slideshow/slider.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/alert.js' %}"></script>
 </head>
 <body>
 <!-- +Slider -->
@@ -89,7 +91,7 @@
                 <div class="col-lg-4"></div>
                 <div id="cartopen" class="col-lg-2" style="margin: auto">
                     <div class="cartcount">
-                        <img src="{% static 'img/online-shop.png' %}" height="50px"/>
+                        <img src="{% static 'img/online-shop.png' %}" height="50px" alt=""/>
                         <span class="count" id="itemcount">0</span>
                     </div>
                 </div>
@@ -106,57 +108,41 @@
 <br>
 <h1 align="center">Items</h1>
 <div style="position: relative">
-    <div style="position: absolute;top:45%;z-index:1;">
-        <i class="fa fa-chevron-circle-left" id="itemsscrollleft" style="font-size: 50px;margin-left:10px"></i>
-    </div>
-    <div class="container" id="items" style="overflow-x: auto;white-space: nowrap;height: 550px;">
+{#    <div style="position: absolute;top:45%;z-index:1;">#}
+{#        <i class="fa fa-chevron-circle-left" id="itemsscrollleft" style="font-size: 50px;margin-left:10px"></i>#}
+{#    </div>#}
+    <div class="container" id="items" style="">
+        <div class="row">
         {% for i in item %}
-            <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
+            <div class="col-lg-4 mt-4" style="">
                 <div class="card" style="width: 19rem;">
+                    {% if i.Discount > 0 %}
+                        <div class="discount-label red"><span>{{ i.Discount }}%</span></div>
+                    {% endif %}
                     <img class="card-img-top" src='{{ i.Image }}' alt="" height="250px">
                     <div class="card-body">
                         <h5 class="card-title">{{ i.Name }}</h5>
-                        <p class="card-text">Rs {{ i.Price }}</p>
+                        {% if i.Discount > 0 %}
+                            <p class="card-text">Rs
+                                <del>{{ i.Price }}</del>&nbsp;<span>{{ i.Discount_amount }}</span>
+                            </p>
+                        {% else %}
+                            <p class="card-text">Rs <span>{{ i.Price }}</span></p>
+                        {% endif %}
                         <i hidden>{{ i.Position_X }},{{ i.Position_Y }}</i>
-                        <a href="#" class="btn btn-primary add-cart">Add to Cart <i
+                        <a href="#" class="btn btn-primary add-cart" id="{{ i.Code }}_add-cart">Add to Cart <i
                                 class="fa fa-cart-arrow-down"></i></a>
-                        <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
+                        <a href="#" class="btn btn-primary directions"> <i class="fa fa-location-arrow"></i></a>
                     </div>
                 </div>
             </div>
         {% endfor %}
-    </div>
-    <div id="itemsscrollright" style="position: absolute;top:45%;z-index:1;margin-right: 10px;right: 0">
-        <i class="fa fa-chevron-circle-right" style="font-size: 50px"></i>
-    </div>
-</div>
-<br>
-<h1 align="center">Suggestions</h1>
-<div class="container" style="overflow-x: auto;white-space: nowrap;height: 550px;position: relative">
-    {% for i in item_sug %}
-        <div class="col-lg-4 mt-4" style="display: inline-block;float: none;">
-            <div class="card" style="width: 18rem;">
-                {% if i.discount > 0 %}
-                <div class="discount-label red"> <span>{{ i.discount }}%</span> </div>
-                {% endif %}
-                <img class="card-img-top" src='{{ i.Image.url }}' alt="" height="250px">
-                <div class="card-body">
-                    <h5 class="card-title">{{ i.item_name }}</h5>
-                    {% if i.discount > 0 %}
-                    <p class="card-text">Rs <del>{{ i.Price }}</del>&nbsp;<ins>{{ i.Discount }}</ins></p>
-                    {% else %}
-                    <p class="card-text">Rs {{ i.Price }}</p>
-                    {% endif %}
-                    <i hidden>{{ i.Direction_x }},{{ i.Direction_y }}</i>
-                    <a href="#" class="btn btn-primary add-cart">Add to Cart <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="#" class="btn btn-primary directions">Directions <i class="fa fa-map-signs"></i></a>
-                </div>
-            </div>
         </div>
-    {% endfor %}
+    </div>
+{#    <div id="itemsscrollright" style="position: absolute;top:45%;z-index:1;margin-right: 10px;right: 0">#}
+{#        <i class="fa fa-chevron-circle-right" style="font-size: 50px"></i>#}
+{#    </div>#}
 </div>
-</div>
-
 <!-- +Slider Logic,
 TODO - Need to move Slider logic to external .js file, currently this logic somehow not working in external .js file
 -->

@@ -7,7 +7,7 @@ import difflib
 from smartcart.models import Items, Advertisements
 from .serializers import ItemsSerializer, AdvertisementsSerializer
 
-con = MongoClient('mongodb+srv://smartcartuser:youknowit@smartcart.qxw37.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE')
+con = MongoClient('mongodb+srv://smartcartuser:youknowit@smartcart.qxw37.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 db=con['smartcartdb']
 item_names=[i["Name"] for i in db['items'].find() ]
 
@@ -23,7 +23,7 @@ class AdvertisementsView(viewsets.ModelViewSet):
 
 # Create your views here.
 def index(request):
-    items = db['items'].find()
+    items = db['items'].aggregate([ { "$addFields" : { "Discount_amount" : {"$subtract":["$Price",{ "$multiply":[ "$Price", { "$divide" : [ "$Discount", 100 ] }]}]}}},{"$sort":{"Discount":-1}}])
     adv = Advertisements.objects.all()
     items_sug = Items.objects.all()
     args = {'item': items, 'adv': adv,'item_sug':items_sug}
