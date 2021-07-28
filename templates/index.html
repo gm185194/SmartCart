@@ -45,7 +45,6 @@
   </div>
 </div>
 <!-- -Slider -->
-
 <div class="main-div">
 <div class="map" id="map">
     <div class="closemaps">
@@ -111,7 +110,7 @@
 {#    <div style="position: absolute;top:45%;z-index:1;">#}
 {#        <i class="fa fa-chevron-circle-left" id="itemsscrollleft" style="font-size: 50px;margin-left:10px"></i>#}
 {#    </div>#}
-    <div class="container" id="items" style="">
+    <div class="container" id="items" style="margin-bottom: 20px">
         <div class="row">
         {% for i in item %}
             <div class="col-lg-4 mt-4" style="">
@@ -148,7 +147,7 @@ TODO - Need to move Slider logic to external .js file, currently this logic some
 -->
 <script>
   var slideIndex = 0;
-//   showSlides();
+  showSlides();
 
   function showSlides() {
     var i;
@@ -171,5 +170,6 @@ TODO - Need to move Slider logic to external .js file, currently this logic some
   }
 </script>
 <!-- +Slider Logic-->
+</div>
 </body>
 </html>

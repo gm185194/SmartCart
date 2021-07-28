@@ -59,5 +59,5 @@ function inactiveStateSetup(waitTimeBeforeInactive) {
   startTimer(waitTimeBeforeInactive); // start new timer
 }
 
-var waitTimeBeforeInactive = 20 * 1000;
+var waitTimeBeforeInactive = 5 * 1000;
 inactiveStateSetup(waitTimeBeforeInactive);
