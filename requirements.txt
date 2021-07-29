@@ -1,0 +1,5 @@
+django
+pillow
+pymongo
+djangorestframework
+dnspython
