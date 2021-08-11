@@ -112,7 +112,7 @@ function requiredArm(this_add_cart, Question) {
     }).then((e) => {
         if (e === ("confirm")) {
             alert("Arm is picking up the item, Please Wait...");
-            $.getJSON('arm-url', {}, function (data, Status) {
+            $.getJSON('http://192.168.29.153/handleservo', {}, function (data, Status) {
                 if (Status === 200) {
                     alert("Arm picked the item, Please continue your shopping");
                 } else {
